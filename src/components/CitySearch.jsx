@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const API_KEY = "f5ac4be4a19c47d8a3e42522222112";
 
 const CitySearch = ({ city, onChange }) => {
-  const [input, setInput] = useState(city);
+  const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isTyping, setIsTyping] = useState(false); // ✅ NEW

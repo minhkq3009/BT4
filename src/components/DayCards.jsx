@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-const DayCards = ({ days, selectedDate, onSelect, selectedMetric }) => {
+const DayCards = ({ days, selectedDate, onSelect, selectedMetric, onDoubleClick }) => {
   const getUVLevel = (uv) => {
     if (uv >= 8) return "Rất cao";
     if (uv >= 6) return "Cao";
@@ -17,16 +17,21 @@ const DayCards = ({ days, selectedDate, onSelect, selectedMetric }) => {
   };
 
   return (
-    <div className="grid grid-cols-7 gap-2">
+    <div className="flex overflow-x-auto gap-3 sm:grid sm:grid-cols-7 sm:gap-2 scrollbar-hide">
       {days.map((day) => {
         const isSelected = day.date === selectedDate;
         const cardClass = clsx(
-          "rounded-xl p-3 cursor-pointer transition-all text-gray-800",
+          "rounded-xl p-3 cursor-pointer transition-all text-gray-800 min-w-[140px] sm:min-w-0",
           isSelected ? "border-2 border-blue-500 bg-white shadow" : "bg-[#eef5fc]"
         );
 
         return (
-          <div key={day.date} className={cardClass} onClick={() => onSelect(day.date)}>
+          <div 
+          key={day.date} 
+          className={cardClass} 
+          onClick={() => onSelect(day.date)}
+          onDoubleClick={()=>onDoubleClick(day)}
+          >
             {/* Ngày + Nhãn */}
             <div className="flex justify-between text-sm text-gray-500 mb-4">
               <span>{new Date(day.date).getDate()}</span>

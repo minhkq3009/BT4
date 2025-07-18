@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import ChipSelector from "./ChipSelector";
 import DayCards from "./DayCards";
 import HourlyChart from "./HourlyChart";
+import WeatherDetailModal from "./WeatherDetailModal";
 
 const WeatherOverview = ({ city }) => {
   const [forecast, setForecast] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedMetric, setSelectedMetric] = useState("Nhiệt độ");
+  const [modalData, setModalData] = useState(null);
 
   const apiKey = "f5ac4be4a19c47d8a3e42522222112";
 
@@ -51,6 +53,7 @@ const WeatherOverview = ({ city }) => {
     humidityMax: Math.round(Math.max(...d.hour.map((h) => h.humidity))),
     humidityMin: Math.round(Math.min(...d.hour.map((h) => h.humidity))),
     uv: Math.max(...d.hour.map((h) => h.uv)),
+    fulData: d,
   }));
 
   return (
@@ -61,8 +64,14 @@ const WeatherOverview = ({ city }) => {
         selectedDate={selectedDate}
         selectedMetric={selectedMetric}
         onSelect={setSelectedDate}
+        onDoubleClick={(day)=>setModalData(day.fulData)}
       />
       <HourlyChart data={hourlyData} dataKey={metricMap[selectedMetric]} />
+
+      {/* MODAL */}
+      {modalData &&(
+        <WeatherDetailModal data={modalData} onClose={() => setModalData(null)} />
+      )}
     </div>
   );
 };
