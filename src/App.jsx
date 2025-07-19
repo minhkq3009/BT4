@@ -8,11 +8,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<CalendarPage />} />
-        <Route path="/article/:slug" element={<ArticleDetail />} />
-        <Route path="/readme" element={<ReadMePage />} />
-        <Route path="/projects" element={<Weather />} />
+        <Route path="/" element={<Weather />} />
       </Routes>
     </Router>
   );
